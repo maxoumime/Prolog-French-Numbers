@@ -42,6 +42,7 @@ isNumber(X) :- number(X, _).
 containsComma(Y) :- 
 	atom_codes(X, Y),
 	atom_chars(X, CLIST),
+writeln(CLIST),
 	nb_setval('COMMA', 0),
 	forall(member(C, CLIST),
 		(
@@ -56,8 +57,8 @@ francaisBase(X) :- ( number(X, _), ! ); ( operator(X, _), !); fail.
 
 francaisCharEcrit(X) :- francaisBase(X, Y), print(Y).
 
-getFrenchNumber :- (
-	
+getFrenchNumber(NUMBER) :- (
+	isNumber(NUMBER) -> number(NUMBER, X), print(X); print('FAUX'), fail
 ).
 
 francais(X) :- 
