@@ -1,5 +1,4 @@
 ﻿constructElementsList(E, X):-
-	consult('francais.pl'),
 	
 	/* "Explose" l'expression E en atomes */
 	atom_chars(E, E_LIST),
@@ -58,12 +57,14 @@
 				nb_setval('CURR_ELEMENT', ''),
 				nb_setval('COMMA', true)
 			;
+			(isNumeric(CHAR)) ->
 				/* Récuperer le CHAR et le mettre dans CURR_ELEMENT à la suite */
 				nb_getval('CURR_ELEMENT', X),
 				string_concat(X, CHAR, RES),
 				nb_setval('CURR_ELEMENT', RES),	
-				nb_setval('COMMA', false),				
-			true		
+				nb_setval('COMMA', false)	
+			;
+				true		
 		)
 	),
 	

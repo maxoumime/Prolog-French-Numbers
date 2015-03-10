@@ -32,14 +32,14 @@ operator(+, 'plus').
 operator(-, 'moins').
 operator(/, 'divisé par').
 operator(*, 'multiplié par').
+operator(=, 'égale').
 comma(,, 'virgule').
 comma(., 'virgule').
 
 isOperator(X) :- operator(X, _).
-
 isNumber(X) :- number(X, _).
-
 isComma(X) :- comma(X, _).
+isNumeric(X) :- atom_number(X, _).
 
 containsComma(X) :- 
 	atom_chars(X, CLIST),
