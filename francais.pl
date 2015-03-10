@@ -1,3 +1,4 @@
+number(0, 'zero').
 number(1, 'un').
 number(2, 'deux').
 number(3, 'trois').
@@ -31,22 +32,21 @@ operator(+, 'plus').
 operator(-, 'moins').
 operator(/, 'divisé par').
 operator(*, 'multiplié par').
-
-virgule(,).
-virgule(.).
+comma(,, 'virgule').
+comma(., 'virgule').
 
 isOperator(X) :- operator(X, _).
 
 isNumber(X) :- number(X, _).
 
-containsComma(Y) :- 
-	atom_codes(X, Y),
+isComma(X) :- comma(X, _).
+
+containsComma(X) :- 
 	atom_chars(X, CLIST),
-writeln(CLIST),
 	nb_setval('COMMA', 0),
 	forall(member(C, CLIST),
 		(
-			(virgule(C)) -> nb_setval('COMMA', 1); true
+			(isComma(C)) -> nb_setval('COMMA', 1); true
 		)
 	),
 	nb_getval('COMMA', RESULTAT),
