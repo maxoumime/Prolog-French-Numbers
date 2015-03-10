@@ -1,4 +1,4 @@
-number(0, 'zero').
+﻿number(0, 'zero').
 number(1, 'un').
 number(2, 'deux').
 number(3, 'trois').
@@ -51,17 +51,4 @@ containsComma(X) :-
 	),
 	nb_getval('COMMA', RESULTAT),
 	RESULTAT=:=1, !; fail
-.
-
-francaisBase(X) :- ( number(X, _), ! ); ( operator(X, _), !); fail.
-
-francaisCharEcrit(X) :- francaisBase(X, Y), print(Y).
-
-getFrenchNumber(NUMBER) :- (
-	isNumber(NUMBER) -> number(NUMBER, X), print(X); print('FAUX'), fail
-).
-
-francais(X) :- 
-	( francaisBase(X, _), francaisCharEcrit(X), ! );
-	( print('HEY'), fail )
 .

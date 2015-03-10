@@ -1,4 +1,4 @@
-getIntegerPart(NUMBER, X) :-
+ï»¿getIntegerPart(NUMBER, X) :-
 	
 	atom_number(NUMBER, NBR),
 	E is NBR,
@@ -7,7 +7,7 @@ getIntegerPart(NUMBER, X) :-
 	DIZAINE is (E-(100 * CENTAINE)) // 10,
 	
 	
-	/* Si la dizaine est 10, 70 et 90 alors l'unité sera onze, douze etc */
+	/* Si la dizaine est 10, 70 et 90 alors l'unitÃ© sera onze, douze etc */
 	(
 		((DIZAINE =:= 1) ; (DIZAINE =:= 7) ; (DIZAINE =:= 9)) -> UNITE is (UNIT + 10)
 	;
@@ -27,19 +27,19 @@ getIntegerPart(NUMBER, X) :-
 		LIAISON = ''
 	),
 	
-	/* Récupération du mot correspondant à la bonne dizaine */
+	/* RÃ©cupÃ©ration du mot correspondant Ã  la bonne dizaine */
 	(
-		/* Si la dizaine est nulle ne récupérer que l'unité */
+		/* Si la dizaine est nulle ne rÃ©cupÃ©rer que l'unitÃ© */
 		(DIZAINE =:= 0) -> 
 			number(UNITE, R),
 			RESULTAT = R
 	;
-		/* Si la dizaine est 10 alors récupérer UNITE, précédemment incrémentée de 10 (ex: 2 devient 12) */
+		/* Si la dizaine est 10 alors rÃ©cupÃ©rer UNITE, prÃ©cÃ©demment incrÃ©mentÃ©e de 10 (ex: 2 devient 12) */
 		(DIZAINE =:= 1) -> 
 			number(UNITE, UN),
 			atom_concat(UN, LIAISON, RESULTAT)
 	;
-		/* Si la dizaine est 70 ou 90 alors récupérer la dizaine - 1 */
+		/* Si la dizaine est 70 ou 90 alors rÃ©cupÃ©rer la dizaine - 1 */
 		(DIZAINE =:= 7 ; DIZAINE =:= 9) ->
 			DIZ is (DIZAINE -1)*10,
 			number(DIZ, DI),
@@ -59,7 +59,7 @@ getIntegerPart(NUMBER, X) :-
 		RESULTAT = R
 	),
 	
-	/* Récupération du terme avec la centaine correspondante */
+	/* RÃ©cupÃ©ration du terme avec la centaine correspondante */
 	(
 		(CENTAINE =:= 1 , (E mod 100) > 0) -> 
 			number(100, CE),

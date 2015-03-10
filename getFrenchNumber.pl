@@ -1,4 +1,4 @@
-getFrenchNumber(NUMBER, C, X):-
+﻿getFrenchNumber(NUMBER, C, X):-
 	consult('getDecimalPart.pl'),
 	consult('getIntegerPart.pl'),
 	

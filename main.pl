@@ -1,4 +1,4 @@
-full_words(E):-
+﻿full_words(E):-
 	consult('francais.pl'),
 	consult('constructElementsList.pl'),
 	consult('getFrenchNumber.pl'),

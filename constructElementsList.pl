@@ -1,30 +1,30 @@
-constructElementsList(E, X):-
+ï»¿constructElementsList(E, X):-
 	consult('francais.pl'),
 	
 	/* "Explose" l'expression E en atomes */
 	atom_chars(E, E_LIST),
-	write('Liste des caractères transmis : '),
+	write('Liste des caractÃ¨res transmis : '),
 	writeln(E_LIST),
 	
 	nb_setval('CURR_ELEMENT', ''),
 	nb_setval('FINAL_LIST', []),
 	
-	/* Parcours de chaque caractères */
+	/* Parcours de chaque caractÃ¨res */
 	write('Analyse en cours '),
 	forall(member(CHAR, E_LIST),
 		(
 			write('>> '),
 			(isOperator(CHAR)) -> RES = operator(CHAR, _),
-				/* Récupération de CURR_ELEMENT dans CURR */
+				/* RÃ©cupÃ©ration de CURR_ELEMENT dans CURR */
 				nb_getval('CURR_ELEMENT', CURR),
 				
-				/* Récupération de FINAL_LIST */
+				/* RÃ©cupÃ©ration de FINAL_LIST */
 				nb_getval('FINAL_LIST', FINAL_L),
 				
 				/* Transformation de CURR en CURR_LIST */
 				atom_codes(CURR_LIST, CURR),
 					
-				/* Ajout de CURR_LIST dans FINAL_L, le résultat étant R */
+				/* Ajout de CURR_LIST dans FINAL_L, le rÃ©sultat Ã©tant R */
 				append(FINAL_L, CURR_LIST, R),
 				R_LIST=[R],
 	
@@ -37,16 +37,16 @@ constructElementsList(E, X):-
 			;
 				
 			(isComma(CHAR)) -> RES = comma(CHAR, _),
-				/* Récupération de CURR_ELEMENT dans CURR */
+				/* RÃ©cupÃ©ration de CURR_ELEMENT dans CURR */
 				nb_getval('CURR_ELEMENT', CURR),
 				
-				/* Récupération de FINAL_LIST */
+				/* RÃ©cupÃ©ration de FINAL_LIST */
 				nb_getval('FINAL_LIST', FINAL_L),
 				
 				/* Transformation de CURR en CURR_LIST */
 				atom_codes(CURR_LIST, CURR),
 					
-				/* Ajout de CURR_LIST dans FINAL_L, le résultat étant R */
+				/* Ajout de CURR_LIST dans FINAL_L, le rÃ©sultat Ã©tant R */
 				append(FINAL_L, CURR_LIST, R),
 				R_LIST=[R],
 	
@@ -58,7 +58,7 @@ constructElementsList(E, X):-
 				nb_setval('CURR_ELEMENT', ''),
 				nb_setval('COMMA', true)
 			;
-				/* Récuperer le CHAR et le mettre dans CURR_ELEMENT à la suite */
+				/* RÃ©cuperer le CHAR et le mettre dans CURR_ELEMENT Ã  la suite */
 				nb_getval('CURR_ELEMENT', X),
 				string_concat(X, CHAR, RES),
 				nb_setval('CURR_ELEMENT', RES),	
@@ -70,13 +70,13 @@ constructElementsList(E, X):-
 	/* Ajout du dernier elment */
 	nb_getval('CURR_ELEMENT', CURR),
 	
-	/* Récupération de FINAL_LIST */
+	/* RÃ©cupÃ©ration de FINAL_LIST */
 	nb_getval('FINAL_LIST', FINAL_L),
 
 	/* Transformation de CURR en CURR_LIST */
 	atom_codes(CURR_LIST, CURR),
 
-	/* Ajout de CURR_LIST dans FINAL_L, le résultat étant RES */
+	/* Ajout de CURR_LIST dans FINAL_L, le rÃ©sultat Ã©tant RES */
 	append(FINAL_L, CURR_LIST, RES),
 	nb_setval('FINAL_LIST', RES),	
 	

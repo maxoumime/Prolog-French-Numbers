@@ -1,4 +1,4 @@
-getDecimalPart(NUMBER, X) :-
+ï»¿getDecimalPart(NUMBER, X) :-
 
 	atom_chars(NUMBER, N_LIST),
 	nb_setval('DECIMAL_RES', ''),
@@ -10,7 +10,7 @@ getDecimalPart(NUMBER, X) :-
 			nb_getval('NEED', NEED),
 			
 			(N =:= 0 , NEED =:= 0 -> 
-				/* Récupération de la partie DECIMALE zone "0" */
+				/* RÃ©cupÃ©ration de la partie DECIMALE zone "0" */
 				nb_getval('DECIMAL_RES', DECIMAL),
 				atom_concat(DECIMAL, 'zero ', D),
 				nb_setval('DECIMAL_RES', D)
@@ -20,7 +20,7 @@ getDecimalPart(NUMBER, X) :-
 		)
 	),
 		
-	/* Récupération de la partie DECIMALE zone "nombre" */
+	/* RÃ©cupÃ©ration de la partie DECIMALE zone "nombre" */
 	nb_getval('DECIMAL_RES', DECIMAL),
 	getIntegerPart(NUMBER, NUM),
 	atom_concat(DECIMAL, NUM, X),
