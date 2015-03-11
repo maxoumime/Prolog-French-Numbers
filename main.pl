@@ -1,7 +1,14 @@
 ﻿full_words(E):-
+	
+	/* Inclusion de toutes les références necessaires */
+	consult('number.pl'),
+	consult('liaison.pl'),
 	consult('francais.pl'),
 	consult('constructElementsList.pl'),
 	consult('getFrenchNumber.pl'),
+	consult('getDecimalPart.pl'),
+	consult('getIntegerPart.pl'),
+	writeln('******** Fin des includes ********'),
 	
 	nb_setval('FINAL_TRADUCTION', ''),
 	nb_setval('COMMA_BEFORE', 0),
@@ -35,5 +42,6 @@
 		)
 	),
 	nb_getval('FINAL_TRADUCTION', R),
-	print(R)
+	writeln('********* Résultat final *********'),
+	write(R)
 .

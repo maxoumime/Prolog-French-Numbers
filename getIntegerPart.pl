@@ -1,5 +1,10 @@
 ﻿getIntegerPart(NUMBER, X) :-
 	
+	nb_setval('FINAL_UNITE', ''),
+	nb_setval('FINAL_DIZAINE', ''),
+	nb_setval('FINAL_CENTAINE', ''),
+	nb_setval('FINAL_LIAISON', ''),
+
 	atom_number(NUMBER, NBR),
 	E is NBR,
 	UNIT is (E mod 10),
@@ -7,88 +12,74 @@
 	DIZAINE is (E-(100 * CENTAINE)) // 10,
 	
 	
-	/* Si la dizaine est 10, 70 et 90 alors l'unité sera onze, douze etc */
-	(
-		((DIZAINE =:= 1) ; (DIZAINE =:= 7) ; (DIZAINE =:= 9)) -> UNITE is (UNIT + 10)
-	;
-		UNITE = UNIT
-	),
+	getUnite(DIZAINE, UNIT, UNITE),
 	
-	/* Condition Grammaticale de la lisaison */
+	liaison(UNITE, DIZAINE, LIAISON),
+	nb_setval('FINAL_LIAISON', LIAISON),
+	
+	
+	/* Récupération de l'unité si elle n'est pas nulle */
 	(
-		(UNITE =:= 0) -> LIAISON = ''
-	;
-		(UNITE =:= 1, DIZAINE \= 8) -> LIAISON = ' et '
-	;
-		(UNITE =:= 11, DIZAINE == 7) -> LIAISON = ' et '
-	;
-		(DIZAINE > 1) -> LIAISON = '-'
-	;
-		LIAISON = ''
+		UNITE > 0 -> 
+			number(UNITE, U),
+			nb_setval('FINAL_UNITE', U)
+		;
+			nb_setval('FINAL_UNITE', '')
 	),
 	
 	/* Récupération du mot correspondant à la bonne dizaine */
-	(
-		/* Si la dizaine est nulle ne récupérer que l'unité */
-		(DIZAINE =:= 0) -> 
-			number(UNITE, R),
-			RESULTAT = R
-	;
-		/* Si la dizaine est 10 alors récupérer UNITE, précédemment incrémentée de 10 (ex: 2 devient 12) */
-		(DIZAINE =:= 1) -> 
-			number(UNITE, UN),
-			atom_concat(UN, LIAISON, RESULTAT)
-	;
-		/* Si la dizaine est 70 ou 90 alors récupérer la dizaine - 1 */
-		(DIZAINE =:= 7 ; DIZAINE =:= 9) ->
-			DIZ is (DIZAINE -1)*10,
-			number(DIZ, DI),
-			number(UNITE, UN),
-			atom_concat(DI, LIAISON, V), 
-			atom_concat(V, UN, RESULTAT)
-	;
-		UNITE > 0 -> 
-			DIZ is DIZAINE * 10,
-			number(DIZ, DI),
-			number(UNITE, UN),
-			atom_concat(DI, LIAISON, V), 
-			atom_concat(V, UN, RESULTAT)
-	;	
-		DIZ is DIZAINE * 10,
-		number(DIZ, R),
-		RESULTAT = R
+	(		
+		(DIZAINE =:= 0) ; (DIZAINE =:= 1) -> 
+			nb_setval('FINAL_DIZAINE', '')
+		;
+		lessOne(DIZAINE) ->
+			REAL_DIZ is (DIZAINE -1)*10,
+			number(REAL_DIZ, D),
+			nb_setval('FINAL_DIZAINE', D)
+		;
+			REAL_DIZ is DIZAINE * 10,
+			number(REAL_DIZ, D),
+			nb_setval('FINAL_DIZAINE', D)
 	),
 	
 	/* Récupération du terme avec la centaine correspondante */
-	(
-		(CENTAINE =:= 1 , (E mod 100) > 0) -> 
-			number(100, CE),
-			atom_concat(CE, ' ', C),
-			atom_concat(C, RESULTAT, FINAL_RESULT)
-	;
-		(CENTAINE =:= 1 ,(E mod 100) =:= 0) -> 
-			number(100, CE),
-			FINAL_RESULT = CE
-	;
-		(CENTAINE > 1, (E mod 100) > 0) -> 
-			number(CENTAINE, CE),
-			number(100, C),
-			atom_concat(CE, ' ', C1),
-			atom_concat(C1, C, C2),
-			atom_concat(C2, ' ', C3),
-			atom_concat(C3, RESULTAT, FINAL_RESULT)
-	;
-		/* cent prend un s dans le cas : */
-		(CENTAINE > 1, (E mod 100) =:= 0) -> 
-			number(CENTAINE, CE),
-			number(100, C),
-			atom_concat(CE, ' ', C1),
-			atom_concat(C1, C, C2),
-			atom_concat(C2, 's ', FINAL_RESULT)
-	;
-		FINAL_RESULT = RESULTAT
-	
+
+	(	
+		number(100, CENT),
+		(
+			(CENTAINE =:= 1) ->
+				atom_concat(CENT, ' ', C),
+				nb_setval('FINAL_CENTAINE', C)
+			;
+			(CENTAINE > 1) -> 
+			(
+				number(CENTAINE, NBR_CENTAINE),
+				atom_concat(NBR_CENTAINE, ' ', R_1),
+				atom_concat(R_1, CENT, R_2),
+				
+				(pluralCent(CENTAINE, E) ->
+						atom_concat(R_2, 's', C),
+						nb_setval('FINAL_CENTAINE', C)
+					;
+						atom_concat(R_2, ' ', C),
+						nb_setval('FINAL_CENTAINE', C)
+				)
+			)
+			;
+			FINAL_CENTAINE = ''
+		)
 	),   
+	
+	
+	nb_getval('FINAL_UNITE', FINAL_UNITE),
+	nb_getval('FINAL_DIZAINE', FINAL_DIZAINE),
+	nb_getval('FINAL_CENTAINE', FINAL_CENTAINE),
+	nb_getval('FINAL_LIAISON', FINAL_LIAISON),
+	
+	atom_concat(FINAL_CENTAINE, FINAL_DIZAINE, FINAL_1),
+	atom_concat(FINAL_1, FINAL_LIAISON, FINAL_2),
+	atom_concat(FINAL_2, FINAL_UNITE, FINAL_RESULT),
+	
 	
 	X = FINAL_RESULT
 .
