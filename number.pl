@@ -32,7 +32,7 @@ operator(+, 'plus').
 operator(-, 'moins').
 operator(/, 'divisé par').
 operator(*, 'multiplié par').
-operator(=, 'égale').
+operator(=, 'égal').
 comma(,, 'virgule').
 comma(., 'virgule').
 

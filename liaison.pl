@@ -1,4 +1,4 @@
-/* Cas '-' */
+﻿/* Cas '-' */
 tiret(DIZAINE) :- 
 	(DIZAINE > 1) -> true;
 	false
