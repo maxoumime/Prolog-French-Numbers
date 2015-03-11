@@ -1,4 +1,4 @@
-﻿number(0, 'zero').
+﻿number(0, 'zéro').
 number(1, 'un').
 number(2, 'deux').
 number(3, 'trois').

@@ -12,7 +12,7 @@
 			(N =:= 0 , NEED =:= 0 -> 
 				/* Récupération de la partie DECIMALE zone "0" */
 				nb_getval('DECIMAL_RES', DECIMAL),
-				atom_concat(DECIMAL, 'zero ', D),
+				atom_concat(DECIMAL, 'zéro ', D),
 				nb_setval('DECIMAL_RES', D)
 			; 
 				nb_setval('NEED', 1)
