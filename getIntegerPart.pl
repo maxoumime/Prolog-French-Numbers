@@ -18,7 +18,7 @@
 	nb_setval('FINAL_LIAISON', LIAISON),
 		
 	/* Récupération de l'unité si elle n'est pas nulle */
-	unite(NEW_UNITE),
+	unite(NEW_UNITE, DIZAINE, CENTAINE),
 	
 	/* Récupération du mot correspondant à la bonne dizaine */
 	getDizaine(DIZAINE, NEW_DIZAINE),

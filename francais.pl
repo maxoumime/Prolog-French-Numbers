@@ -31,9 +31,9 @@ pluralCent(CENTAINE, E):-
 	false
 .
 
-unite(UNITE) :- 
+unite(UNITE, DIZAINE, CENTAINE) :- 
 (
-	UNITE > 0 -> 
+	((UNITE > 0) ; (UNITE =:= 0 , DIZAINE =:= 0, CENTAINE =:= 0)) -> 
 		number(UNITE, U),
 		nb_setval('FINAL_UNITE', U)
 	;
