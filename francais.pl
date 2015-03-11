@@ -31,6 +31,12 @@ pluralCent(CENTAINE, E):-
 	false
 .
 
+pluralVingt(DIZAINE, UNITE) :-
+	(DIZAINE = 8, UNITE = 0) -> true;
+	false
+.
+
+
 unite(UNITE, DIZAINE, CENTAINE) :- 
 (
 	((UNITE > 0) ; (UNITE =:= 0 , DIZAINE =:= 0, CENTAINE =:= 0)) -> 
@@ -40,14 +46,21 @@ unite(UNITE, DIZAINE, CENTAINE) :-
 		nb_setval('FINAL_UNITE', '')
 ).
 
-dizaine(DIZAINE) :-
+dizaine(DIZAINE, UNITE) :-
 (
 	(DIZAINE =:= 0) ; (DIZAINE =:= 1) -> 
 		nb_setval('FINAL_DIZAINE', '')
 	;
-		REAL_DIZ is DIZAINE * 10,
+	(	REAL_DIZ is DIZAINE * 10,
 		number(REAL_DIZ, D),
-		nb_setval('FINAL_DIZAINE', D)
+		
+		(	pluralVingt(DIZAINE, UNITE) ->
+				atom_concat(D, 's', D_2),
+				nb_setval('FINAL_DIZAINE', D_2)
+			;
+				nb_setval('FINAL_DIZAINE', D)
+		)
+	)
 ).
 
 centaine(CENTAINE, E) :-

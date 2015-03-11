@@ -22,7 +22,7 @@
 	
 	/* Récupération du mot correspondant à la bonne dizaine */
 	getDizaine(DIZAINE, NEW_DIZAINE),
-	dizaine(NEW_DIZAINE),
+	dizaine(NEW_DIZAINE, NEW_UNITE),
 	
 	/* Récupération du terme avec la centaine correspondante */
 	centaine(CENTAINE, E),   
