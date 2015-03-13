@@ -17,9 +17,16 @@ none(UNITE) :-
 	false
 .
 
-liaison(UNITE, DIZAINE, LIAISON) :-
-	none(UNITE) -> LIAISON = '' ;
-	et(UNITE, DIZAINE) -> LIAISON = ' et ' ;
-	tiret(DIZAINE) -> LIAISON = '-' ;
-	LIAISON = ''
+/* Récupération de la liaison appropriée */
+liaison(UNITE, DIZAINE, CENTAINE, LIAISON) :-
+	(
+		(DIZAINE =\= 0 ; CENTAINE =\= 0) ->
+			(	none(UNITE) -> LIAISON = '' ;
+				et(UNITE, DIZAINE) -> LIAISON = ' et ' ;
+				tiret(DIZAINE)-> LIAISON = '-' ;
+				LIAISON = ''
+			)
+		;
+			LIAISON = '' 
+	)
 .

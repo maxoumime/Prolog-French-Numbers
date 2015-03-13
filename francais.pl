@@ -25,18 +25,19 @@ getDizaine(DIZAINE, NEW_DIZAINE) :-
 ).
 
 
-/* Condition grammatical pour la mise au pluriel de cent */
+/* Condition grammaticale pour la mise au pluriel de cent */
 pluralCent(CENTAINE, E):-
 	(CENTAINE > 1, (E mod 100) =:= 0) -> true;
 	false
 .
 
+/* Condition grammaticale pour la mise au pluriel de cent */
 pluralVingt(DIZAINE, UNITE) :-
 	(DIZAINE = 8, UNITE = 0) -> true;
 	false
 .
 
-
+/* Retourne la forme française de l'unité */
 unite(UNITE, DIZAINE, CENTAINE) :- 
 (
 	((UNITE > 0) ; (UNITE =:= 0 , DIZAINE =:= 0, CENTAINE =:= 0)) -> 
@@ -46,6 +47,7 @@ unite(UNITE, DIZAINE, CENTAINE) :-
 		nb_setval('FINAL_UNITE', '')
 ).
 
+/* Retourne la forme française de la dizaine */
 dizaine(DIZAINE, UNITE) :-
 (
 	(DIZAINE =:= 0) ; (DIZAINE =:= 1) -> 
@@ -63,6 +65,7 @@ dizaine(DIZAINE, UNITE) :-
 	)
 ).
 
+/* Retourne la forme française de la centaine */
 centaine(CENTAINE, E) :-
 (	
 	number(100, CENT),

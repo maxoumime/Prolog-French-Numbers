@@ -20,7 +20,7 @@
 		)
 	),
 		
-	/* Récupération de la partie DECIMALE zone "nombre" */
+	/* Récupération de la partie DECIMALE zone "nombre" <=> partie ENTIERE*/
 	nb_getval('DECIMAL_RES', DECIMAL),
 	getIntegerPart(NUMBER, NUM),
 	atom_concat(DECIMAL, NUM, X),

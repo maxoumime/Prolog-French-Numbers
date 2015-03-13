@@ -1,6 +1,6 @@
 ﻿constructElementsList(E, X):-
 	
-	/* "Explose" l'expression E en atomes */
+	/* "Explose" l'expression E en liste d'atomes */
 	atom_chars(E, E_LIST),
 	write('Liste des caractères transmis : '),
 	writeln(E_LIST),
@@ -12,6 +12,7 @@
 	write('Analyse en cours '),
 	forall(member(CHAR, E_LIST),
 		(
+			/* Construit la liste des éléments */		
 			write('>> '),
 			(isOperator(CHAR)) -> RES = operator(CHAR, _),
 				/* Récupération de CURR_ELEMENT dans CURR */

@@ -1,5 +1,12 @@
 ﻿full_words(E):-
 	
+	/* Vérifie que l'atome transmis n'est pas vide ! */
+	(
+		atom_length(E, L),		
+		(L > 0) ->  true ;
+		false		
+	),
+
 	/* Inclusion de toutes les références necessaires */
 	consult('number.pl'),
 	consult('liaison.pl'),
@@ -13,8 +20,11 @@
 	nb_setval('FINAL_TRADUCTION', ''),
 	nb_setval('COMMA_BEFORE', 0),
 	
+	
+	/* Fonction permettant de séparer la chaine reçue en une liste d'éléments, afin de les traiter un à un */
 	constructElementsList(E, ELEMENTS),
 	
+	/* Récupération de la forme française de chaque élément */
 	forall(member(EL, ELEMENTS),
 	/*Pour chaque element "EL" de "ELEMENTS" */
 		(
@@ -30,7 +40,8 @@
 			isComma(EL) -> 
 				comma(EL, CO),
 				atom_concat(CURR, CO, R),
-				atom_concat(R, ' ', RESULT),				
+				atom_concat(R, ' ', RESULT),
+				/* Indique que le nombre qui suit doit être interprété comme un décimal et non comme une partie entière*/
 				nb_setval('COMMA_BEFORE', 1)
 			;
 				getFrenchNumber(EL, COMMA, NB),

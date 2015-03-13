@@ -6,15 +6,25 @@
 	nb_setval('FINAL_LIAISON', ''),
 
 	atom_number(NUMBER, NBR),
+	 	
 	E is NBR,
+	
+	/* Vérification, le nombre ne doit pas dépasser 999 sinon retourner erreur */
+	(
+		(E > 999) -> false;
+		true
+	),
+	
+	/* Récupération de l'indice des unités, dizaines et centaines    ex : 457 - UNITE: 7 - DIZAINE: 5 - CENTAINE : 4 */
 	UNITE is (E mod 10),
 	CENTAINE is (E // 100),
 	DIZAINE is (E-(100 * CENTAINE)) // 10,
-	
-	
+		
+	/* Récupère la nouvelle unité */
 	getUnite(DIZAINE, UNITE, NEW_UNITE),
 	
-	liaison(NEW_UNITE, DIZAINE, LIAISON),
+	/* Récupération de a liaison entre dizaine et unité */
+	liaison(NEW_UNITE, DIZAINE, CENTAINE, LIAISON),
 	nb_setval('FINAL_LIAISON', LIAISON),
 		
 	/* Récupération de l'unité si elle n'est pas nulle */
